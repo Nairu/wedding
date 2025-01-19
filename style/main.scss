@@ -1,0 +1,352 @@
+// Light mode variables
+$primary-color: #be3289;
+$secondary-color: #9b2e4f;
+$text-color: white;
+$box-bg-color: rgba(255, 255, 255, 0.9);
+$navbar-bg-color: rgba(0, 0, 0, 0.5);
+$box-text-color: #333;
+$box-subtext-color: #666;
+
+// Dark mode variables
+$dark-primary-color: #141e30;
+$dark-secondary-color: #243b55;
+$dark-text-color: #f0f0f0;
+$dark-box-bg-color: rgba(40, 40, 40, 0.9);
+$dark-navbar-bg-color: rgba(20, 20, 20, 0.8);
+$dark-box-text-color: #f0f0f0;
+$dark-box-subtext-color: #aaa;
+
+// Global styles
+body,
+html {
+	margin: 0;
+	padding: 0;
+	font-family: Arial, sans-serif;
+	height: 100%;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: inherit;
+}
+
+.gradient-background {
+	position: relative;
+	/* Needed for absolute positioning of child elements */
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	// background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+	background-color: #e7e6d5;
+	color: #ffffff;
+	overflow: hidden;
+	z-index: 0;
+	/* Ensures any part of images outside the container is hidden */
+	pointer-events: auto;
+
+	&.dark-mode {
+		color: $dark-text-color;
+	}
+}
+
+.background-image {
+	position: absolute;
+	/* Allows for placement over the gradient */
+	max-width: 100%;
+	/* Prevents the image from exceeding the container width */
+	pointer-events: none;
+	/* Ensures the images don't interfere with clicks */
+
+
+	&.image-1 {
+		// top: 10%;
+		// /* Adjust position of first image */
+		// left: 15%;
+		// /* Move it horizontally */
+		width: 100%;
+		height: 100%;
+		background-size: cover;
+		/* Adjust the size */
+		opacity: 1.0;
+		z-index: 1;
+		pointer-events: none;
+
+		/* Optional: Add transparency */
+		&.dark-mode {
+			opacity: 1.0;
+		}
+	}
+
+	// &.image-2 {
+	// 	// bottom: 5%;
+	// 	// /* Adjust position of second image */
+	// 	// right: 10%;
+	// 	// /* Move it horizontally */
+	// 	width: max-content;
+	// 	height: max-content;
+	// 	/* Adjust the size */
+	// 	opacity: 1;
+	// 	z-index: 2;
+	// 	pointer-events: none;
+	// 	/* Optional: Add transparency */
+
+	// 	&.dark-mode {
+	// 		opacity: 1.0;
+	// 	}
+	// }
+}
+
+.image-overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.9);
+	/* 50% black overlay */
+	pointer-events: none;
+	z-index: 2;
+	opacity: 0.3;
+	/* Hidden by default */
+	transition: opacity 0.3s ease;
+
+	&.dark-mode {
+		opacity: 1;
+		/* Show overlay in dark mode */
+	}
+}
+
+.navbar {
+	width: 100%;
+	padding: 0;
+	background-color: $navbar-bg-color;
+	position: sticky;
+	top: 0;
+	z-index: 10;
+
+	display: flex;
+	justify-content: center;
+	/* Center-align the items */
+	align-items: center;
+
+	.toggle-container {
+		position: absolute;
+		left: 10px;
+		/* Keep the toggle switch aligned to the left */
+	}
+
+	ul {
+		display: flex;
+		list-style: none;
+		gap: 2em;
+		margin: 0;
+		padding: 1em 2em;
+
+		li a {
+			text-decoration: none;
+			color: $text-color;
+			font-weight: bold;
+			font-size: 2em;
+		}
+	}
+}
+
+// Content box
+.content-box {
+	max-width: 600px;
+	width: 90%;
+	margin: auto;
+	padding: 2em;
+	background-color: $box-bg-color;
+	border-radius: 10px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	text-align: center;
+	z-index: 8;
+
+	h1 {
+		color: $box-text-color;
+	}
+
+	p {
+		color: $box-subtext-color;
+	}
+
+	&.dark-mode {
+		background-color: $dark-box-bg-color;
+
+		h1 {
+			color: $dark-box-text-color;
+		}
+
+		p {
+			color: $dark-box-subtext-color;
+		}
+	}
+}
+
+.toggle-switch {
+	position: relative;
+	display: inline-block;
+	width: 60px;
+	/* Increase width to fit icons */
+	height: 30px;
+
+	input {
+		opacity: 0;
+		width: 0;
+		height: 0;
+	}
+
+	.slider {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-color: #ccc;
+		border-radius: 30px;
+		transition: background-color 0.3s;
+
+		&::before {
+			position: absolute;
+			content: "";
+			height: 24px;
+			width: 24px;
+			left: 3px;
+			bottom: 3px;
+			background-color: white;
+			border-radius: 50%;
+			transition: transform 0.3s;
+		}
+	}
+
+	.icons {
+		position: absolute;
+		top: 5px;
+		/* Adjust to align inside the slider */
+		left: 10px;
+		width: 40px;
+		/* Adjust to fit slider */
+		height: 20px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		font-size: 14px;
+		pointer-events: none;
+
+		.icon {
+			opacity: 0.5;
+			/* Add subtle contrast */
+			transition: opacity 0.3s;
+		}
+
+		.icon.sun {
+			opacity: 1;
+			/* Visible by default */
+		}
+
+		.icon.moon {
+			opacity: 0;
+			/* Hidden by default */
+		}
+	}
+
+	input:checked~.icons .icon.sun {
+		opacity: 0;
+	}
+
+	input:checked~.icons .icon.moon {
+		opacity: 1;
+	}
+}
+
+.theme-toggle {
+	display: inline-block;
+	position: relative;
+	align-items: center;
+	justify-content: center;
+	width: 3rem;
+	/* Container width */
+	height: 3rem;
+	/* Container height */
+	margin: 0rem;
+	cursor: pointer;
+	background-color: #f0f0f0;
+	border-radius: 50%;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	transition: background-color 0.3s ease, transform 0.2s ease;
+
+	&:hover {
+		transform: scale(1.1);
+		/* Slight zoom on hover */
+	}
+
+	&:active {
+		transform: scale(0.95);
+		/* Slight press effect */
+	}
+
+	&.dark {
+		background-color: #333;
+		/* Dark mode background */
+		box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1);
+	}
+
+	.svg {
+		fill: currentColor;
+		/* Icon inherits container color */
+		color: #333;
+		/* Default color for light mode */
+		transition: color 0.3s ease;
+
+		.theme-toggle.dark & {
+			color: #f0f0f0;
+			/* Light color for dark mode */
+		}
+	}
+}
+
+.frame {
+	background-color: #ddc;
+	border: solid 5vmin #eee;
+	border-bottom-color: #fff;
+	border-left-color: #eee;
+	border-radius: 2px;
+	border-right-color: #eee;
+	border-top-color: #ddd;
+	box-shadow: 0 0 5px 0 rgba(0, 0, 0, .25) inset, 0 5px 10px 5px rgba(0, 0, 0, .25);
+	box-sizing: border-box;
+	display: inline-block;
+	margin: 10vh 10vw;
+	// height: 80vh;
+	padding: 4vmin;
+	position: relative;
+	text-align: center;
+
+	&:before {
+		border-radius: 2px;
+		bottom: -2vmin;
+		box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .25) inset;
+		content: "";
+		left: -2vmin;
+		position: absolute;
+		right: -2vmin;
+		top: -2vmin;
+	}
+
+	&:after {
+		border-radius: 2px;
+		bottom: -2.5vmin;
+		box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .25);
+		content: "";
+		left: -2.5vmin;
+		position: absolute;
+		right: -2.5vmin;
+		top: -2.5vmin;
+	}
+}

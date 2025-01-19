@@ -2,9 +2,10 @@
 #[tokio::main]
 async fn main() {
     use axum::Router;
-    use leptos::logging::log;
     use leptos::prelude::*;
+    use leptos::{leptos_dom::logging::console_log, logging::log};
     use leptos_axum::{generate_route_list, LeptosRoutes};
+    use wedding_leptos::api::establish_connection;
     use wedding_leptos::app::*;
 
     let conf = get_configuration(None).unwrap();

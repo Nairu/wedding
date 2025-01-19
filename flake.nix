@@ -28,6 +28,7 @@
             cargo-leptos
             cargo-generate
             sass
+            diesel-cli
           ];
 
           PKG_CONFIG_PATH = "${pkgs.openssl.dev}/lib/pkgconfig";
